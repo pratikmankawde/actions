@@ -43,27 +43,36 @@ jobs:
               }
             }
 
-            if (toAdd.length) {
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: context.issue.number,
-                labels: toAdd,
-              });
-            }
+            core.info(`Labels to add: ${toAdd.join(', ') || 'none'}`);
+            core.info(`Labels to remove: ${toRemove.join(', ') || 'none'}`);
 
-            for (const label of toRemove) {
-              try {
-                await github.rest.issues.removeLabel({
+            try {
+              if (toAdd.length) {
+                await github.rest.issues.addLabels({
                   owner: context.repo.owner,
                   repo: context.repo.repo,
                   issue_number: context.issue.number,
-                  name: label,
+                  labels: toAdd,
                 });
-              } catch (e) {
-                // Label was not applied, ignore 404
+              }
+
+              for (const label of toRemove) {
+                try {
+                  await github.rest.issues.removeLabel({
+                    owner: context.repo.owner,
+                    repo: context.repo.repo,
+                    issue_number: context.issue.number,
+                    name: label,
+                  });
+                } catch (e) {
+                  if (e.status !== 404) throw e;
+                }
+              }
+            } catch (e) {
+              if (e.status === 403) {
+                core.warning('Insufficient permissions to modify labels. ' +
+                  'Ensure the caller workflow grants pull-requests: write.');
+              } else {
+                throw e;
               }
             }
-
-            core.info(`Labels added: ${toAdd.join(', ') || 'none'}`);
-            core.info(`Labels removed: ${toRemove.join(', ') || 'none'}`);
