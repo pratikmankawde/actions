@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    types: [opened, edited, reopened]
+  workflow_dispatch:
+
+jobs:
+  test-pr-auto-labeler:
+    uses: ./.github/workflows/pr-auto-labeler.yml
+    with:
+      label_mapping: >-
+        {
+          "- \\[x\\] Bug fix": "bug fix",
+          "- \\[x\\] New feature": "new feature",
+          "- \\[x\\] Breaking change": "breaking change",
+          "- \\[x\\] Refactor": "refactor",
+          "- \\[x\\] Performance": "performance",
+          "- \\[x\\] Tests": "tests",
+          "- \\[x\\] Documentation update": "documentation",
+          "- \\[x\\] Chore": "chore",
+          "- \\[x\\] Release": "release"
+        }
