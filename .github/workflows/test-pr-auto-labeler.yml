@@ -3,6 +3,9 @@ on:
     types: [opened, edited, reopened]
   workflow_dispatch:
 
+permissions:
+  pull-requests: write
+
 jobs:
   test-pr-auto-labeler:
     uses: ./.github/workflows/pr-auto-labeler.yml
