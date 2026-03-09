@@ -12,13 +12,13 @@ jobs:
     with:
       label_mapping: >-
         {
-          "- \\[x\\] Bug fix": "bug fix",
-          "- \\[x\\] New feature": "new feature",
-          "- \\[x\\] Breaking change": "breaking change",
-          "- \\[x\\] Refactor": "refactor",
-          "- \\[x\\] Performance": "performance",
-          "- \\[x\\] Tests": "tests",
-          "- \\[x\\] Documentation update": "documentation",
-          "- \\[x\\] Chore": "chore",
-          "- \\[x\\] Release": "release"
+          "- \\[x\\] Bug fix": "BugFix",
+          "- \\[x\\] New feature": "NewFeature",
+          "- \\[x\\] Breaking change": "BreakingChange",
+          "- \\[x\\] Refactor": "Refactor",
+          "- \\[x\\] Performance": "Performance",
+          "- \\[x\\] Tests": "Tests",
+          "- \\[x\\] Documentation update": "Documentation",
+          "- \\[x\\] Chore": "Chore",
+          "- \\[x\\] Release": "Release"
         }
